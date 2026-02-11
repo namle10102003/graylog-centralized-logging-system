@@ -1,0 +1,13 @@
+services:
+  react-landing-page:
+    build: .
+    container_name: react-landing-page
+    hostname: Prod-ReactLP
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://${GRAYLOG_IP}:12201"
+        tag: "react-landing-page"

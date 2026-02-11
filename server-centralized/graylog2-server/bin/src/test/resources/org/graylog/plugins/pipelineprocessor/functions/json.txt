@@ -1,0 +1,23 @@
+rule "json"
+when
+  true
+then
+  let json = parse_json(to_string($message.flat_json));
+  set_fields(to_map(json));
+
+  // Parse escaped chars, including non-standard ones
+  let escaped_json = parse_json("{\"escaped\":\"\\a \\t \\+\"}");
+  set_fields(to_map(escaped_json));
+
+  // Don't fail on invalid input
+  let invalid_json = parse_json("#FOOBAR#");
+  set_fields(to_map(invalid_json));
+
+  // Don't fail on empty input
+  let empty_json = parse_json("");
+  set_fields(to_map(empty_json));
+
+  // Don't fail on nested input
+  let nested_json = parse_json(to_string($message.nested_json));
+  set_fields(to_map(nested_json));
+end

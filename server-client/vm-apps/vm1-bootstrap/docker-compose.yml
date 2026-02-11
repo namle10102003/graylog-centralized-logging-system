@@ -1,0 +1,13 @@
+services:
+  bootstrap-landing-page:
+    build: .
+    container_name: bootstrap-landing-page
+    hostname: Prod-BootstrapLP
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://${GRAYLOG_IP}:12201"
+        tag: "bootstrap-landing-page"
