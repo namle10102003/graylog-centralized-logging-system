@@ -1,3 +1,0 @@
-type = "r"
-message = "Remove obsolete `ElasticsearchConfigMigration` and `AddRetentionRotationAndDefaultFlagToIndexSetMigration` migrations."
-pulls = ["16153"]

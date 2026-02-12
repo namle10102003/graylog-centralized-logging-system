@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fixed issue where new Dashboards and Streams are sometimes not editable or sharable until the full page is refreshed."
-
-issues = ["graylog-plugin-enterprise#12172"]
-pulls = ["23885"]

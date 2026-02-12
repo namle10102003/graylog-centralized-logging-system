@@ -1,5 +1,0 @@
-type = "f"
-message = 'Fix permissions for logs rotation in datanode/opensearch'
-
-issues = ["23338"]
-pulls = ["23347"]

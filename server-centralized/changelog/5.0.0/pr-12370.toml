@@ -1,4 +1,0 @@
-type = "fixed"
-message = "Reset time-based rotation strategy after leader change."
-
-pulls = ["12370"]

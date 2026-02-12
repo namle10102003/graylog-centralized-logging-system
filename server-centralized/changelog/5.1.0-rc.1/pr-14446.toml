@@ -1,4 +1,0 @@
-type = "fixed"
-message = "Supporting nested and tupled groupings in aggregations."
-
-pulls = ["14446"]

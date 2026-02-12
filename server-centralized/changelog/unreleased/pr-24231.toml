@@ -1,4 +1,0 @@
-type = "f"
-message = "Reducing memory usage of suggest endpoint through better field type fetching."
-
-pulls = ["24231"]

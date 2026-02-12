@@ -1,5 +1,0 @@
-type = "a"
-message = "Add auto refresh button to events page"
-
-issues = ["graylog-plugin-enterprise#8661"]
-pulls = ["20996"]

@@ -1,4 +1,0 @@
-type = "added"
-message = "Add OpenTelemetry tracing instrumentation to select code paths."
-
-pulls = ["14550"]

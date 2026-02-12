@@ -1,5 +1,0 @@
-type = "added"
-message = "Add option to create thresholds on widget charts."
-
-issues = ["23549"]
-pulls = ["23537"]

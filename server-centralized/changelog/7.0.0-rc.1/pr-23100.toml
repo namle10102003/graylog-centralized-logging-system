@@ -1,5 +1,0 @@
-type = "f"
-message = "Deduplicate opensearch node roles in datanode"
-
-pulls = ["23100"]
-issues = ["22569"]

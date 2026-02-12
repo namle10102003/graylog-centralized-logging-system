@@ -1,5 +1,0 @@
-type = "added"
-message = "Added the Email Notification ID to the System Notification for Missing Email Recipients."
-
-issues = ["16988"]
-pulls = ["17061"]

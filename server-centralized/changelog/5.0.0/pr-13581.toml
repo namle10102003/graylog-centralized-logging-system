@@ -1,4 +1,0 @@
-type = "changed"
-message = "Move submit button in widget edit mode next to configuration form."
-
-pulls = ["13581"]

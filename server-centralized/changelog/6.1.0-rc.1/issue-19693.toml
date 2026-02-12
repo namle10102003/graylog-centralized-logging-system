@@ -1,4 +1,0 @@
-type="c"
-message="Changed default setting for Kafka transports to non-legacy mode."
-
-issues=["19693"]

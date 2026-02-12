@@ -1,4 +1,0 @@
-type = "fixed"
-message = "Fixing replay search routes when path prefix is present."
-
-pulls = ["20910"]

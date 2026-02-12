@@ -1,6 +1,0 @@
-rule "required param missing"
-when
-  true
-then
-  set_field("foo");
-end

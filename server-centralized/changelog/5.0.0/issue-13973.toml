@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Allow non-word-characters in lookup tables key field"
-
-issues = ["13973"]
-pulls = ["14029"]

@@ -1,4 +1,0 @@
-type = "added"
-message = "Add Remote reindex connection check, and display indices with errors."
-
-pulls = ["18621"]

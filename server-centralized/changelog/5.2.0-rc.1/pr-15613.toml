@@ -1,4 +1,0 @@
-type = "fixed"
-message = "Avoid redirecting to path with trailing `/` when delivering static assets."
-
-pulls = ["15613"]

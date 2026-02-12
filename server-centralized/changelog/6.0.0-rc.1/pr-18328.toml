@@ -1,4 +1,0 @@
-type = "changed"
-message = "Require authentication for visiting API browser to limit information exposure."
-
-pulls = ["18328"]

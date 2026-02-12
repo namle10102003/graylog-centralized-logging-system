@@ -1,6 +1,0 @@
-rule "grok_exists"
-when
-    grok_exists("GREEDY")
-then
-    trigger_test();
-end

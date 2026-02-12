@@ -1,4 +1,0 @@
-type = "a"
-message = "Allow configuring Markdown rendering options."
-
-pulls = ["23899"]

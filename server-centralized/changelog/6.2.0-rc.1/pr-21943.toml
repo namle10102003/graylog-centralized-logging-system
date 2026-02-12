@@ -1,5 +1,0 @@
-type = "c"
-message = "Generated certificates now use 4096 bit keys."
-
-issues = ["graylog-plugin-enterprise#9951"]
-pulls = ["21943"]

@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Return error instead of warning during query validation if a used parameter has no value set."
-
-issues = ["graylog-plugin-enterprise#10868"]
-pulls = ["22756"]

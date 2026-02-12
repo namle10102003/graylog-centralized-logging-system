@@ -1,4 +1,0 @@
-type = "f"
-message = "Fixed bug where inputs with multiple encrypted configuration values could not be saved."
-
-pulls = ["21217"]

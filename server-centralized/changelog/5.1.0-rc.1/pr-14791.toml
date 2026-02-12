@@ -1,4 +1,0 @@
-type = "f"
-message = "Fix parsing of date math expressions in query validation"
-
-pulls = ["14791"]

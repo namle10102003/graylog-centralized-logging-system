@@ -1,4 +1,0 @@
-type = "c"
-message = "datanode: add conf option to be able to force single-node type"
-
-pull = ["15070"]

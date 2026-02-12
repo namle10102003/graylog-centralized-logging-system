@@ -1,5 +1,0 @@
-type = "f"
-message = "Allow Sidecar Manager role to manage sidecar tokens."
-
-issues = ["24470"]
-pulls = ["24526"]

@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fix scratchpad copy button"
-
-issues = ["18788"]
-pulls = ["18874"]

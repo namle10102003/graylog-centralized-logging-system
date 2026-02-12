@@ -1,5 +1,0 @@
-type="f"
-message="Disable data node migration wizard on installations using data node"
-
-issues=["19871"]
-pulls=["20035"]

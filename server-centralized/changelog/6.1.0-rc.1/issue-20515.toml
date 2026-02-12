@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fix streams page always shows horizontal scroll bar."
-
-issues = ["20515"]
-pulls = ["20522"]

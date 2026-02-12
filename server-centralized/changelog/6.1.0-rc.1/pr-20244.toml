@@ -1,4 +1,0 @@
-type = "a"
-message = "Fix error when installing content pack with stream_title parameter."
-
-pulls = ["20244"]

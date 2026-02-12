@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fixed issue where the email notification edit page displayed the default email body templates instead of user configured ones."
-
-issues = ["24515"]
-pulls = ["24657"]

@@ -1,4 +1,0 @@
-type = "added"
-message = "Adding inline widget creation in empty slots on grid."
-
-pulls = ["14331"]

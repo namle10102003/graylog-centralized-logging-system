@@ -1,5 +1,0 @@
-type = "f"
-message = "Reset events widget pagination when executing search."
-
-issues = ["18915"]
-pulls = ["18945"]

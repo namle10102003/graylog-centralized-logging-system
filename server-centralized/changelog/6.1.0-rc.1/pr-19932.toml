@@ -1,4 +1,0 @@
-type = "f"
-message = "Add /connection-check endpoint to datanode rest api proxy allowlist."
-
-pulls = ["19932"]

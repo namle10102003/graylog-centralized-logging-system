@@ -1,5 +1,0 @@
-type = "f"
-message = "Fix preflight basic auth prompt when password has not been entered"
-
-issues = ["17385"]
-pulls = ["17405"]

@@ -1,4 +1,0 @@
-type = "f"
-message = 'Open items in "Recent Activity" in same tab.'
-
-pulls = ["24078"]

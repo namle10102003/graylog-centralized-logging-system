@@ -1,5 +1,0 @@
-type = "a"
-message = "Implement creation date filter for streams overview."
-
-issues = ["14828"]
-pulls = ["14966"]

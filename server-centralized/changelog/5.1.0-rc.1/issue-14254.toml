@@ -1,5 +1,0 @@
-type = "added"
-message = "Add support for a reply-to address in email notifications."
-
-issues = ["14254"]
-pulls = ["14337"]

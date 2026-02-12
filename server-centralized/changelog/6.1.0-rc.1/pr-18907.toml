@@ -1,4 +1,0 @@
-type = "fixed"
-message = "Fix unknown field caused_by in remote reindex migration task class"
-
-pulls = ["18907"]

@@ -1,5 +1,0 @@
-type="f"
-message="Fix issue with widget timerange, query and streams filter for events widget on dashboards."
-
-issues=["19486"]
-pulls=["19537"]

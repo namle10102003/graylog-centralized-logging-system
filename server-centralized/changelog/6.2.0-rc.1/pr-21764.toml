@@ -1,5 +1,0 @@
-type = "c"
-message = "AmqpTransport: Log root cause of IOException, if possible"
-
-issues = [""]
-pulls = ["21764"]

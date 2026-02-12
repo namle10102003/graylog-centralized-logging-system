@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fixing up extraction of effective time range for async searches."
-
-issues = ["20800"]
-pulls = ["20808"]

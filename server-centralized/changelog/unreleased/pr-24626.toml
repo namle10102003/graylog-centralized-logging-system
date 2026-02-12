@@ -1,5 +1,0 @@
-type = "a"
-message = "Enable opensearch 3 client by default, via feature flag opensearch3_client"
-
-issues = []
-pulls = ["24626"]

@@ -1,4 +1,0 @@
-type = "f"
-message = "Fix NullPointerException in JsonMappingExceptionMapper."
-
-pulls = ["22819"]

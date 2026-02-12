@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fix Teams Overview tab visibility for Team Inspector role"
-
-issues = ["Graylog2/graylog-plugin-enterprise#11568"]
-pulls = ["23599"]

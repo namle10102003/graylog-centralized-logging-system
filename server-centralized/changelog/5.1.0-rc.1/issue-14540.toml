@@ -1,5 +1,0 @@
-type = "added"
-message = "Add replay search pages for events, alerts and event definitions"
-
-issues = ["14540"]
-pulls = ["14657"]

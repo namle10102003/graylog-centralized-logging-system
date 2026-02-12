@@ -1,4 +1,0 @@
-type = "changed"
-message = "Moved AWS plugin into server repository."
-
-pulls = ["15318"]

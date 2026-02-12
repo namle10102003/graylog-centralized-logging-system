@@ -1,5 +1,0 @@
-type = "f"
-message = "Properly parse trailing padding bytes in IPFIX data sets."
-
-pulls = ["20073"]
-issues = ["graylog-plugin-integrations#395"]

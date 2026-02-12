@@ -1,4 +1,0 @@
-type = "a"
-message = "Show tasks progress in Remote Reindex Migration"
-
-pulls = ["19657"]

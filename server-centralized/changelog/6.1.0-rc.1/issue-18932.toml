@@ -1,5 +1,0 @@
-type="f"
-message="Fix selecting option in more results select on pipeline simulator page."
-
-issues=["18932"]
-pulls=["19413"]

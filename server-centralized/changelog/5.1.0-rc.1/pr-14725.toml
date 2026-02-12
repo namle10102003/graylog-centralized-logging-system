@@ -1,4 +1,0 @@
-type = "c"
-message = "Unify fields configuration in aggregation builder and messages export modal."
-
-pulls = ["14725"]

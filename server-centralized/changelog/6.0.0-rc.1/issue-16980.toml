@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fix rule builder dropdown UX"
-
-issues = ["16980"]
-pulls = ["17919"]

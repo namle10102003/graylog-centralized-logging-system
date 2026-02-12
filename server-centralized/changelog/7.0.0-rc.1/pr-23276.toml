@@ -1,5 +1,0 @@
-type = "f"
-message = "Fix generated list of opensearch initial manager roles in datanode"
-
-issues = []
-pulls = ["23276"]

@@ -1,5 +1,0 @@
-rule "debug"
-when true
-then
-    normalize_fields();
-end

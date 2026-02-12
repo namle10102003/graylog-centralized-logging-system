@@ -1,4 +1,0 @@
-type = "a"
-message = "Added preflight UI for indexer configuration"
-
-pull = ["14941"]

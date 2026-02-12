@@ -1,7 +1,0 @@
-type = "fixed"
-message = "Fix extractors reordering issues"
-
-issues = ["14693"]
-pulls = ["14757"]
-
-

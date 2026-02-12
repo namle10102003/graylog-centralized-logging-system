@@ -1,5 +1,0 @@
-type="f"
-message="Datanode: Maximum downtime estimate during migration"
-
-issues=["19270"]
-pulls=["19293"]

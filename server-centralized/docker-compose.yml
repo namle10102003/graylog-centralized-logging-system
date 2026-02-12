@@ -1,7 +1,4 @@
-version: "3.8"
-
 services:
-  # MongoDB - lưu trữ metadata của Graylog
   mongo:
     image: mongo:5.0
     container_name: graylog-mongo
@@ -11,7 +8,6 @@ services:
     volumes:
       - mongo_data:/data/db
 
-  # OpenSearch - lưu trữ và tìm kiếm log
   opensearch:
     image: opensearchproject/opensearch:2.11.1
     container_name: graylog-opensearch
@@ -33,7 +29,6 @@ services:
     volumes:
       - os_data:/usr/share/opensearch/data
 
-  # Graylog Server - bao gồm cả Backend và Frontend (Web Interface)
   graylog:
     image: graylog/graylog:5.2
     container_name: graylog-server
@@ -44,31 +39,20 @@ services:
     env_file:
       - .env
     environment:
-      # Địa chỉ bind cho HTTP server
       GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:9000"
-      # Địa chỉ external để truy cập web interface
-      GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
-      # Kết nối tới OpenSearch
+      GRAYLOG_HTTP_EXTERNAL_URI: "${GRAYLOG_HTTP_EXTERNAL_URI:-http://localhost:9000/}"
       GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
-      # Kết nối tới MongoDB
       GRAYLOG_MONGODB_URI: "mongodb://mongo:27017/graylog"
     entrypoint: /usr/bin/tini -- wait-for-it opensearch:9200 -- /docker-entrypoint.sh
     networks:
       - graylog-network
     ports:
-      # Web interface và REST API
       - "9000:9000"
-      # Syslog TCP input
       - "1514:1514/tcp"
-      # Syslog UDP input
       - "1514:1514/udp"
-      # GELF TCP input
       - "12201:12201/tcp"
-      # GELF UDP input
       - "12201:12201/udp"
-      # Raw/Plaintext TCP input
       - "5555:5555/tcp"
-      # Raw/Plaintext UDP input
       - "5555:5555/udp"
     volumes:
       - graylog_data:/usr/share/graylog/data

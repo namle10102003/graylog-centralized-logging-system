@@ -1,4 +1,0 @@
-type = "a"
-message = "Adding frontend error reporting through telemetry, requiring opt-in."
-
-pulls = ["22616"]

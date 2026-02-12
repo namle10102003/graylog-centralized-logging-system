@@ -1,4 +1,0 @@
-type = "changed"
-message = "Sorting streams case-insensitive in API."
-
-pulls = ["14262"]

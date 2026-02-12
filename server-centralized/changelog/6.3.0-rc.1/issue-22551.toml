@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fix updating rulebuilder based rule failing error."
-
-issues = ["22551"]
-pulls = ["22723"]

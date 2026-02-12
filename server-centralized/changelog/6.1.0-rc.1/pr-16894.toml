@@ -1,4 +1,0 @@
-type = "a"
-message = "Display progress indicator for search auto refresh controls."
-
-pulls = ["16894"]

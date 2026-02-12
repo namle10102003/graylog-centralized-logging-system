@@ -26,7 +26,7 @@ from datetime import datetime
 from pathlib import Path
 
 # ============ CONFIGURATION ============
-GRAYLOG_URL = "http://localhost:9000"
+GRAYLOG_URL = "http://192.168.31.131:9000"
 GRAYLOG_USER = "admin"
 GRAYLOG_PASS = "10102003"  # Password set in server-centralized/.env
 

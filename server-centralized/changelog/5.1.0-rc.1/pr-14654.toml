@@ -1,4 +1,0 @@
-type = "f"
-message = "Hide sort/pin icons in data table when non-interactive"
-
-pulls = ["14654"]

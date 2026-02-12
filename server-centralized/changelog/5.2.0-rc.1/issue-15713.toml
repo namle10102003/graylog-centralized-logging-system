@@ -1,4 +1,0 @@
-type = "added"
-message = "Create undo/redo actions in search"
-
-pulls = ["15704"]

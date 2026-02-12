@@ -1,4 +1,0 @@
-type = "f"
-message = "Fix legacy public notifications missing `variant` field created in previous versions breaking login screen."
-
-pulls = ["24645"]

@@ -1,4 +1,0 @@
-type = "c"
-message = "Wait for Datanode to become available during graylog server startup"
-
-pulls = ["17758"]

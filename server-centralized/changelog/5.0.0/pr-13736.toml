@@ -1,4 +1,0 @@
-type = "added"
-message = "Allow setting TCP-keepalive for all sockets used in HTTP notifications."
-
-pulls = ["13736"]

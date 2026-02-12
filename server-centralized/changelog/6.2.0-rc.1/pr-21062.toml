@@ -1,4 +1,0 @@
-type = "c"
-message = "Better handling of intermediate CAs in datanode truststore"
-
-pulls = ["21062"]

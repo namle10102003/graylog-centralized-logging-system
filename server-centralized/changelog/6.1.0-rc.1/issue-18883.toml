@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fix Grok field extraction for patterns with converters."
-
-issues = ["18883"]
-pulls = ["18898"]

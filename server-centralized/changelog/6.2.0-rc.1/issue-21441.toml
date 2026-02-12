@@ -1,5 +1,0 @@
-type = "added"
-message = "Adds token TTL to user token creation form"
-
-issues = ["21441"]
-pulls = ["21917"]

@@ -1,5 +1,0 @@
-type = "f"
-message = "Improve error handling for the Kinesis/Cloudwatch input."
-
-issues = ["22137"]
-pulls = ["22370"]

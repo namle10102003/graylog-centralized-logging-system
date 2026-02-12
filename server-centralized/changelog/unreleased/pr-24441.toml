@@ -1,4 +1,0 @@
-type = "a"
-message = "Make maximum event age of cluster events configurable. "
-
-pulls = ["24441"]

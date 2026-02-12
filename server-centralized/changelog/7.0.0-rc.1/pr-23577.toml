@@ -1,5 +1,0 @@
-type = "a"
-message = "Toggling to edit mode automatically after creating new widget."
-
-issues = ["10294"]
-pulls = ["23577"]

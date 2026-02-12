@@ -1,6 +1,0 @@
-type = "r"
-message = "Remove support for legacy Collector Sidecars."
-
-issues = [""]
-pulls = ["Graylog2/graylog-project-internal#102"]
-

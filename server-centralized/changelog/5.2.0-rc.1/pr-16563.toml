@@ -1,4 +1,0 @@
-type = "f"
-message = "Fixing display of session timeout unit on user edit page."
-
-pulls = ["16563"]

@@ -1,5 +1,0 @@
-type = "f"
-message = "Add sidecar filebeat collector for windows again."
-
-issues = ["19195"]
-pulls = ["19325"]

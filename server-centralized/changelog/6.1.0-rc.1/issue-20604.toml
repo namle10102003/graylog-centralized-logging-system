@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fix Datanode Details Page Error"
-
-issues = ["20604"]
-pulls = ["20628"]

@@ -1,4 +1,0 @@
-type = "changed"
-message = "Unify position of documentation links in page headers."
-
-pulls = ["13691"]

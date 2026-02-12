@@ -1,4 +1,0 @@
-type = "f"
-message = "Fixing plot legend for larger label sets."
-
-pulls = ["20426"]

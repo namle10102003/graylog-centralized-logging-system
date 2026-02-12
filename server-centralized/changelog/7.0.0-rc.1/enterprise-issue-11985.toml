@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fixed issue where duplicated event definitions were not editable until the full page is refreshed."
-
-issues = ["graylog-plugin-enterprise#11985"]
-pulls = ["23966"]

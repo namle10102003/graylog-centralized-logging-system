@@ -1,4 +1,0 @@
-type = "f"
-message = "Fix problem with missing field types on message details page."
-
-pulls = ["19600"]

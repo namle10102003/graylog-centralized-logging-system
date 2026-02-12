@@ -1,5 +1,0 @@
-type = "c"
-message = "Read CSP directives from a resource property file."
-
-issues = ["15370"]
-pulls = ["15439"]

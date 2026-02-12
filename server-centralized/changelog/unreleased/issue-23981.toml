@@ -1,5 +1,0 @@
-type = "f"
-message = "Fix issue when thresholds shows only partially."
-
-issues = ["23981"]
-pulls = ["23982"]

@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Improved CSV File Adapter error handling."
-
-issues = ["graylog-plugin-enterprise#3821"]
-pulls = ["14670"]

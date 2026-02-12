@@ -1,4 +1,0 @@
-type = "a"
-message = "Added metrics to the shared \"scheduler\" and \"daemonScheduler\" thread pools."
-
-pulls = ["21454"]

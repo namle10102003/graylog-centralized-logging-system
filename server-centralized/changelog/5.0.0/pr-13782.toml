@@ -1,4 +1,0 @@
-type = "fixed"
-message = "Allow \"Show Top Values\" action for enumerable compound fields."
-
-pulls = ["137892"]

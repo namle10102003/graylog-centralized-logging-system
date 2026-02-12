@@ -1,4 +1,0 @@
-type = "a"
-message = "data node cluster name is configurable"
-
-pulls = ["17143"]

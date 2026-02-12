@@ -1,4 +1,0 @@
-type = "a"
-message = "Adding values pivot option to disable empty buckets."
-
-pulls = ["15814"]

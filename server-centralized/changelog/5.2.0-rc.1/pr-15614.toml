@@ -1,5 +1,0 @@
-type = "a"
-message = "Include titles of advanced field types in suggestions."
-
-pulls = ["15614"]
-

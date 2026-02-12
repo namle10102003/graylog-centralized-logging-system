@@ -1,4 +1,0 @@
-type = "a"
-message = "Add PBKDF2 password hash function for FIPS 140-2 support"
-
-pulls = ["20658"]

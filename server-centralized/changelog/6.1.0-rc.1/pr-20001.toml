@@ -1,4 +1,0 @@
-type = "c"
-message = "Implement table rows border color with more contrast."
-
-pulls = ["20001"]

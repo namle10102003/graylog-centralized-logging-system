@@ -1,4 +1,0 @@
-type = "f"
-message = "Update URLs in DocHelper class to point to go2docs"
-
-pulls = ["19630"]

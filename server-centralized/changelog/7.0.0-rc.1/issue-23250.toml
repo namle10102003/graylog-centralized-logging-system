@@ -1,5 +1,0 @@
-type = "f"
-message = "Data Node Heap Size Warning rewording."
-
-issues = ["23250"]
-pulls = ["23817"]

@@ -1,5 +1,0 @@
-type = "f"
-message = "Disable opensearch node autodetection for statically configured list of opensearch hosts"
-
-pulls = ["23062"]
-issues = ["23057"]

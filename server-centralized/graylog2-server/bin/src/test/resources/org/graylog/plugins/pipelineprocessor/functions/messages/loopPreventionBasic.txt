@@ -1,6 +1,0 @@
-rule "test rule"
-when
-    true
-then
-    clone_message();
-end

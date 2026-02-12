@@ -1,5 +1,0 @@
-type = "fixed"
-message = "Fix: BulkActions dialog not closing after clicking on Confirm."
-
-issues = ["15259"]
-pulls = ["15384"]

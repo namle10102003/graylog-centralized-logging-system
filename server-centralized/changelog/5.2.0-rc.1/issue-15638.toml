@@ -1,6 +1,0 @@
-type = "f"
-message = "Remove LastOpened and Favorite items from internal Entity List"
-
-issues = ["15638", "15574"]
-pulls = ["15658"]
-

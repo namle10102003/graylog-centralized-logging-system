@@ -1,4 +1,0 @@
-type = "fixed"
-message = "Trim whitespace characters on stream names."
-
-pulls = ["14359"]
